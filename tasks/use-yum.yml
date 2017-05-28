@@ -10,10 +10,16 @@
 - name: install libselinux-python binary for Ansible to work 
   yum: name=libselinux-python state=present
 
+- block:
+    - name: Add pcp bintray repository
+      template: src=bintray-pcp.repo.j2 dest=/etc/yum.repos.d/bintray-pcp.repo
+  when: pcp_repo is defined and pcp_repo == 'pcp'
 
 - name: install PCP
   yum: name=pcp  update_cache=yes  state=present
 
 - name: copy INIT script
-  command: cp /usr/share/pcp/lib/pcp  /etc/init.d/pcp
-  when: (ansible_os_family == "RedHat") and (ansible_distribution_major_version|int >= 7)
+  copy: src=/usr/share/pcp/lib/pcp dest=/etc/init.d/pcp remote_src=yes mode=0755
+  when: ansible_service_mgr != 'systemd'
+#  when: (ansible_os_family == "RedHat") and (ansible_distribution_major_version|int >= 7)
+

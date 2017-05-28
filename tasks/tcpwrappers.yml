@@ -1,0 +1,10 @@
+---
+
+- name: restrict services with hosts.deny
+  lineinfile: dest=/etc/hosts.deny line='{{ item }}:ALL' backup=yes create=yes
+  with_items: "{{ pcp_services }}"
+
+- name: restrict services with hosts.allow
+  lineinfile: dest=/etc/hosts.allow line="snmpd:{{ item }}" backup=yes create=yes
+  with_items: "{{ snmpd_clients }}"
+

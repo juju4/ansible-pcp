@@ -10,10 +10,12 @@ Role name in Ansible Galaxy: **[williamyeh.pcp](https://galaxy.ansible.com/list#
 This Ansible role has the following features for [PCP (Performance Co-Pilot)](http://pcp.io):
 
  - Install PCP.
+    * from Netflix repository for apt (only precise, trusty, utopic)
+    * from official distribution repository for yum and other apt cases
  - Install specified Performance Metrics Domain Agents (PMDAs).
  - Bare bone configuration (*real* configuration should be left to user's template files; see **Usage** section below).
 
-
+For web interface, can use Graphite, Grafana, Netflix Vector for example.
 
 ## Role Variables
 

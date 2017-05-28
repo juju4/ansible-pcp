@@ -1,0 +1,22 @@
+---
+## http://pcp.io/books/PCP_UAG/html/id5191707.html
+## default
+#[access]
+#disallow ".*" : store;
+#disallow ":*" : store;
+#allow "local:*" : all;
+
+#- name: review access controls
+## not ini file...
+#  ini_file: dest={{ pmcd_conf }} section=access backup=yes
+
+- name: restrict pmcd binding
+  lineinfile:
+    dest: /etc/pcp/pmcd/pmcd.options
+    line: "-i {{ pcp_pmcd_bindonly }}"
+    insertafter: '^# -i '
+    backup: yes
+  when: pcp_pmcd_bindonly is defined and pcp_pmcd_bindonly != ''
+  notify:
+    - restart pmcd
+

@@ -7,3 +7,10 @@
 
 - name: stop pcp
   service: name=pcp state=stopped
+
+- name: restart pmwebd
+  service: name=pmwebd state=restarted
+
+- name: restart pmcd
+  service: name=pmcd state=restarted
+

@@ -12,5 +12,24 @@
 #
 
 #pcp_pmda: []
+#pcp_pmda:
+#  - summary
+#  - trace
 
 pcp_pmcdconf_path: '/etc/pcp/pmcd/pmcd.conf'
+
+## leave undefined or empty for distribution repo
+#pcp_repo: 'netflix'
+## FIXME! W:The repository 'https://dl.bintray.com/ {distribution} Release' does not have a Release file., W:Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
+#pcp_repo: 'pcp'
+#pcp_repo: ''
+pcp_repo: 'pcp'
+
+
+pcp_darwin_url: 'https://dl.bintray.com/pcp/macosx/:pcp-3.11.4-1.dmg'
+pcp_darwin_checksum: 'sha256:aaaa'
+pcp_pmcd_bindonly: 127.0.0.1
+#pcp_pmcd_bindonly: "{{ ansible_default_ipv4.address }}"
+#pcp_pmwebd_port: 44323
+pcp_pmwebd_port: 9999
+

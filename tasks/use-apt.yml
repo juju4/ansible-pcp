@@ -12,22 +12,26 @@
     - python-software-properties
     - apt-transport-https
 
-- name: add APT signing key for Netflix
-  apt_key: url="https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss" state=present
+- debug: var=pcp_repo
+- block:
+    - name: add APT signing key for Netflix
+      apt_key: url="https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss" state=present
 
-- name: add Netflix repository
-  apt_repository: repo='deb https://dl.bintray.com/netflixoss/{{ ansible_distribution|lower }}  {{ ansible_distribution_release }}  main' state=present
-  when: ansible_distribution_release != "jessie"
+    - name: add Netflix repository
+      apt_repository: repo="deb https://dl.bintray.com/netflixoss/{{ ansible_distribution|lower }}  {{ ansible_distribution_release }}  main" state=present
+  when: pcp_repo is defined and pcp_repo == 'netflix' and (ansible_distribution_release == 'precise' or ansible_distribution_release == 'trusty' or ansible_distribution_release == 'utopic')
+- block:
+    - name: add APT signing key for Netflix
+      apt_key: keyserver=keyserver.ubuntu.com id=A51D3ADCDEA2C114
 
-
+    - name: add PCP bintray repository
+      apt_repository: repo="deb https://dl.bintray.com/pcp/{{ ansible_distribution_release|lower }} {{ ansible_distribution_release|lower }} main" state=present
+  when: pcp_repo is defined and pcp_repo == 'pcp'
 
 
 - name: install pcp
-  apt: name={{ item }}  update_cache=yes  state=present force=yes
-  with_items:
-    - pcp
-    - pcp-webapi
-
+  apt: name={{ item }} update_cache=yes state=present
+  with_items: "{{ pcp_packages }}"
 
 - name: fix wrong "Default-Start" setting
   lineinfile:
@@ -37,7 +41,9 @@
     backrefs: yes
 
 - name: set INIT status (SysV style)
-  shell: LC_ALL="en_US.UTF-8" update-rc.d pcp defaults
+  command: "update-rc.d pcp defaults creates=/etc/rc5.d/S01pcp"
+  environment:
+    LC_ALL: "en_US.UTF-8"
 
 - name: set INIT status and start
   service: name=pcp state=started enabled=yes

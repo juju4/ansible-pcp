@@ -1,0 +1,13 @@
+---
+
+pcp_packages:
+  - pcp
+  - pcp-webapi
+
+pcp_services:
+  - pcp
+  - pmwebd
+  - pmcd
+
+pmcd_conf: /etc/pcp/pmcd/pmcd.conf
+

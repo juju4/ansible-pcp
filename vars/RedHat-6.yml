@@ -1,0 +1,14 @@
+---
+
+pcp_packages:
+  - pcp
+  - pcp-system-tools
+
+pcp_services:
+  - pmcd
+  - pmie
+  - pmlogger
+  - pmproxy
+
+pcp_repo_dir: el6
+
