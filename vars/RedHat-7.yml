@@ -3,6 +3,9 @@
 pcp_packages:
   - pcp
   - pcp-system-tools
+# $ subscription-manager repos --enable rhel-7-server-optional-rpms
+#  - pcp-webapi
+#  - pcp-webjs
 
 pcp_services:
   - pmcd

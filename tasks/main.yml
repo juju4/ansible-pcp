@@ -11,7 +11,7 @@
   when: ansible_distribution == 'Ubuntu'
 - name: Include version-specific variables for RedHat
   include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
-  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_os_family == "RedHat"
 
 - name: delegate to APT system for installation
   include: use-apt.yml
@@ -57,6 +57,8 @@
     backup: yes
   notify:
     - restart pmwebd
+## no pmwebd on standard centos
+  when: ansible_os_family != "RedHat"
 
 - include: security.yml
 
