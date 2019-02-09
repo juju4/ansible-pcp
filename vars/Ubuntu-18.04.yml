@@ -1,5 +1,8 @@
 ---
 
+pcp_deps:
+    - apt-transport-https
+
 pcp_packages:
   - pcp
   - pcp-webapi

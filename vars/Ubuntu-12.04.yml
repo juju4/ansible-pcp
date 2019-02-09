@@ -1,5 +1,9 @@
 ---
 
+pcp_deps:
+    - python-software-properties
+    - apt-transport-https
+
 pcp_packages:
     - pcp
     - pcp-webapi
