@@ -7,4 +7,3 @@
 - name: restrict services with hosts.allow
   lineinfile: dest=/etc/hosts.allow line="snmpd:{{ item }}" backup=yes create=yes
   with_items: "{{ snmpd_clients }}"
-

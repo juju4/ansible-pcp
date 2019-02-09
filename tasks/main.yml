@@ -21,8 +21,6 @@
   include: use-yum.yml
   when: ansible_pkg_mgr == "yum"
 
-
-
 - name: copy scripts to server
   copy: src="../files/{{ item }}"  dest="/tmp/"  mode="a+x"
   with_items:
@@ -61,4 +59,3 @@
   when: ansible_os_family != "RedHat"
 
 - include: security.yml
-

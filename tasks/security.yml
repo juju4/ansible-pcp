@@ -16,7 +16,6 @@
     line: "-i {{ pcp_pmcd_bindonly }}"
     insertafter: '^# -i '
     backup: yes
-  when: pcp_pmcd_bindonly is defined and pcp_pmcd_bindonly != ''
+  when: pcp_pmcd_bindonly is defined and pcp_pmcd_bindonly
   notify:
     - restart pmcd
-

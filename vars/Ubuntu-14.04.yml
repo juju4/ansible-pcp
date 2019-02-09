@@ -10,4 +10,3 @@ pcp_services:
   - pmcd
 
 pmcd_conf: /etc/pcp/pmcd/pmcd.conf
-

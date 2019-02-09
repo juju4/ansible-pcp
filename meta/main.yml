@@ -13,6 +13,8 @@ galaxy_info:
           versions:
               - precise
               - trusty
+              - xenial
+              - bionic
 
         - name: Debian
           versions:

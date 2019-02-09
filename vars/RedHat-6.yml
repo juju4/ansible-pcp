@@ -11,4 +11,3 @@ pcp_services:
   - pmproxy
 
 pcp_repo_dir: el6
-

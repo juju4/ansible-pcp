@@ -8,4 +8,3 @@ pcp_services:
   - pcp
 
 pmcd_conf: /etc/pcp/pmcd/pmcd.conf
-
