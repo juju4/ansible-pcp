@@ -8,11 +8,15 @@
 
 - name: install add-apt-repository and https binaries for Ansible to work
   apt: name={{ pcp_deps }} state=present update_cache=yes
+  register: pkg_result
+  until: pkg_result is success
 
 - debug: var=pcp_repo
 - block:
     - name: add APT signing key for Netflix
       apt_key: url="https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss" state=present
+      register: pkg_result
+      until: pkg_result is success
 
     - name: add Netflix repository
       apt_repository:
@@ -27,6 +31,8 @@
 - block:
     - name: add APT signing key for Netflix
       apt_key: keyserver=keyserver.ubuntu.com id=A51D3ADCDEA2C114
+      register: pkg_result
+      until: pkg_result is success
 
     - name: add PCP bintray repository
       apt_repository:
@@ -37,6 +43,8 @@
 
 - name: install pcp
   apt: name={{ pcp_packages }} update_cache=yes state=present
+  register: pkg_result
+  until: pkg_result is success
 
 - name: fix wrong "Default-Start" setting
   lineinfile:

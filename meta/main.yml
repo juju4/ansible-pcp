@@ -24,7 +24,7 @@ galaxy_info:
           versions:
               - 6
 
-    categories:
+    galaxy_tags:
         - system
         - monitoring
 

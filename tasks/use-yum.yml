@@ -8,6 +8,8 @@
 
 - name: install libselinux-python binary for Ansible to work
   yum: name=libselinux-python state=present
+  register: pkg_result
+  until: pkg_result is success
 
 - block:
     - name: Add pcp bintray repository
@@ -16,6 +18,8 @@
 
 - name: install PCP
   yum: name=pcp  update_cache=yes  state=present
+  register: pkg_result
+  until: pkg_result is success
 
 - name: copy INIT script
   copy: src=/usr/share/pcp/lib/pcp dest=/etc/init.d/pcp remote_src=yes mode=0755
