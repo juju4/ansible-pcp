@@ -28,7 +28,9 @@
 
 - block:
     - name: check if there're still PMDAs needed to be installed
-      shell: LC_ALL="en_US.UTF-8"  /tmp/check-pmda.py   '{{ pcp_pmcdconf_path }}'  '{{ pcp_pmda }}'
+      command: /tmp/check-pmda.py '{{ pcp_pmcdconf_path }}' '{{ pcp_pmda }}'
+      environment:
+        LC_ALL: "en_US.UTF-8"
       changed_when: false
       register: pmda_info
       failed_when: pmda_info.rc > 0
