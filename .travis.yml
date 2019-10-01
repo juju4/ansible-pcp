@@ -78,13 +78,17 @@ script:
 ## travis/docker: Errno::EROFS: Read-only file system @ dir_s_mkdir - /etc/ansible/roles/williamyeh.pcp/test/integration/default/serverspec/.bundle
 #  - 'sudo docker exec --tty "$(cat ${container_id})" /etc/ansible/roles/williamyeh.pcp/test/integration/default/serverspec/run-local-tests.sh'
 
-  # Clean up
-  - 'sudo docker stop "$(cat ${container_id})"'
-
 after_failure:
   # Check what happened on systemd systems.
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl -l status'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pcp'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmwebd'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmcd'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe --no-pager'
+
+after_script:
+  # Clean up
+  - 'sudo docker stop "$(cat ${container_id})"'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
