@@ -1,0 +1,8 @@
+---
+
+- block:
+    - name: ensure run directory exists
+      file: dest=/run/pcp state=directory mode=0755 owner=pcp group=pcp
+    - name: ensure pid directory for pcp user at reboot (systemd-tmpfiles)
+      lineinfile: dest=/etc/tmpfiles.d/pcp.conf line='    d    /run/pcp   0755 pcp pcp - -' create=yes
+  when: ansible_service_mgr == 'systemd'
