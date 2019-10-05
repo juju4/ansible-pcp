@@ -85,6 +85,7 @@ after_failure:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmcd'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmlogger'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm tail -1000 /var/log/pcp/pmlogger/pmlogger_daily-K.log'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /usr/lib/systemd/system/pmlogger.service'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls -alR /run/'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ps auxw'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager'
