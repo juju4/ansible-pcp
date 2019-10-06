@@ -88,8 +88,10 @@ after_failure:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /usr/lib/systemd/system/pmlogger.service'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls -alR /run/'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ps auxw'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ulimit -a'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe --no-pager'
+  - 'ulimit -a'
 
 after_script:
   # Clean up
