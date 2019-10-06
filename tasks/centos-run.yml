@@ -10,6 +10,7 @@
 - name: Centos | pcp systemd as user pcp
   blockinfile:
     dest: /usr/lib/systemd/system/pmlogger.service
+    insertafter: "^PIDFile=.*"
     block: |
       User=pcp
       Group=pcp
