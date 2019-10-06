@@ -6,13 +6,3 @@
     - name: ensure pid directory for pcp user at reboot (systemd-tmpfiles)
       lineinfile: dest=/etc/tmpfiles.d/pcp.conf line='    d    /run/pcp   0755 pcp pcp - -' create=yes
   when: ansible_service_mgr == 'systemd'
-
-- name: Centos | pcp systemd as user pcp
-  blockinfile:
-    dest: /usr/lib/systemd/system/pmlogger.service
-    insertafter: "^PIDFile=.*"
-    block: |
-      User=pcp
-      Group=pcp
-  notify:
-    - systemd reload

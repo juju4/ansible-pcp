@@ -1,4 +1,6 @@
 ---
+# file: handlers/main.yml
+#
 
 - name: restart pcp
   service: name=pcp state=restarted
@@ -11,7 +13,3 @@
 
 - name: restart pmcd
   service: name=pmcd state=restarted
-
-- name: systemd reload
-  systemd:
-    daemon_reload: yes
