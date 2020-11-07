@@ -6,7 +6,6 @@ pcp_deps:
 
 pcp_packages:
   - pcp
-  - pcp-webapi
 
 pcp_services:
   - pcp
