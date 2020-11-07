@@ -74,7 +74,11 @@ script:
 #  - 'sudo docker exec --tty "$(cat ${container_id})" /etc/ansible/roles/williamyeh.pcp/test/integration/default/serverspec/run-local-tests.sh'
 
 after_failure:
-  # Check what happened on systemd systems.
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe --no-pager'
+  - 'sudo docker exec --tty "$(cat ${container_id})" ansible -i inventory --connection=local -m setup localhost'
+
+after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pcp'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmwebd'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager pmcd'
@@ -84,11 +88,7 @@ after_failure:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls -alR /run/'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ps auxw'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ulimit -a'
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status -l --no-pager'
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe --no-pager'
   - 'ulimit -a'
-
-after_script:
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
