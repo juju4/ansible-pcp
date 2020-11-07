@@ -52,15 +52,4 @@
 
 #/etc/pcp/pmrep/pmrep.conf, optional zabbix integration
 
-- name: configure port listening for pmwebd
-  lineinfile:
-    dest: /etc/pcp/pmwebd/pmwebd.options
-    line: "OPTIONS=\"$OPTIONS -p {{ pcp_pmwebd_port }}\""
-    insertafter: '^#OPTIONS="-p 9999"  # port number'
-    backup: yes
-  notify:
-    - restart pmwebd
-## no pmwebd on standard centos
-  when: ansible_os_family != "RedHat"
-
 - include: security.yml
