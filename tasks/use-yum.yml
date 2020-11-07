@@ -7,7 +7,9 @@
 #
 
 - name: install libselinux-python binary for Ansible to work
-  yum: name=libselinux-python state=present
+  yum:
+    name: "{% if 'python3' in ansible_python_interpreter|default('') %}python3-libselinux{% else %}libselinux-python{% endif %}"
+    state: present
   register: pkg_result
   until: pkg_result is success
 
