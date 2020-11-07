@@ -1,0 +1,12 @@
+---
+
+pcp_deps:
+  - apt-transport-https
+
+pcp_packages:
+  - pcp
+
+pcp_services:
+  - pcp
+
+pmcd_conf: /etc/pcp/pmcd/pmcd.conf
