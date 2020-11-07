@@ -19,7 +19,7 @@
 
 - name: delegate to YUM system for installation
   include: use-yum.yml
-  when: ansible_pkg_mgr == "yum"
+  when: ansible_pkg_mgr == "yum" or ansible_pkg_mgr == "dnf"
 
 - include: centos-run.yml
   when: ansible_os_family == "RedHat"
